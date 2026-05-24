@@ -1,64 +1,3 @@
-
-
-
-
-SMART HOME IoT SECURITY SYSTEM
-Implementation Research Report
-Security-Focused Local IoT Architecture with Mutual TLS,
-VLAN Segmentation, and Real-Time Anomaly Detection
-
-Project:  Smart Home IoT Automation & Security Platform
-Stack:  FastAPI · Next.js 15 · PostgreSQL/TimescaleDB · Mosquitto MQTT · Docker
-Date:  May 2026
-Report Type:  Research Implementation Report
- 
-Table of Contents
-1    Executive Summary
-2    Research Context & Objectives
-3    System Architecture Overview
-  3.1    High-Level Architecture
-  3.2    Service Components
-  3.3    Network Segmentation (VLAN Design)
-  3.4    Data Flow
-4    Security Implementation
-  4.1    Transport Layer Security - TLS 1.3
-  4.2    Mutual TLS (mTLS) for MQTT Devices
-  4.3    Per-Device Certificate Management
-  4.4    Authentication & JWT Session Management
-  4.5    Role-Based Access Control (RBAC)
-  4.6    MQTT Access Control List (ACL)
-  4.7    IP Blocking & Rate Limiting
-  4.8    Security Audit Trail & Event Management
-  4.9    Anomaly Detection (Z-Score & Isolation Forest)
-  4.10    Admin Security Actions
-5    Backend Implementation (FastAPI)
-  5.1    API Design & Routing
-  5.2    Database Layer (PostgreSQL + TimescaleDB)
-  5.3    MQTT Bridge Service
-  5.4    Telegram Notification Bot
-  5.5    Structured Logging
-6    Frontend Implementation (Next.js 15)
-  6.1    Dashboard & Device Management
-  6.2    Security Page
-  6.3    Room & Favorites Management
-  6.4    Real-Time Updates via WebSocket
-  6.5    Responsive Design & Mobile Support
-7    Deployment & Infrastructure
-  7.1    Docker Compose Architecture
-  7.2    Nginx Reverse Proxy
-  7.3    Hardware Deployment (Office PC / Mini PC)
-  7.4    Backup & Data Retention
-8    Voice Control Integration
-9    Maintainability & Troubleshooting
-  9.1    Observability & Logging
-  9.2    Diagnostic Workflows
-  9.3    Certificate Renewal Workflow
-10    User Interface & User Experience
-11    Testing & Validation
-12    Limitations & Future Work
-13    Conclusion
-14    References & Appendices
- 
 1.  Executive Summary
 This report documents the design, implementation, and evaluation of a security-first Smart Home IoT Automation Platform. The system addresses a critical gap identified in consumer IoT deployments: the systematic absence of transport encryption, device authentication, and real-time threat visibility in off-the-shelf smart home solutions.
 The platform was built as a fully local, cloud-independent system deployable on commodity hardware (a used office PC or mini PC). It is designed to be local-first: every core function (device control, telemetry storage, anomaly detection, the security dashboard, and the offline voice control subsystem) runs on the local network and continues to operate completely without internet access. It enforces TLS 1.3 on every communication channel, requires mutual TLS (mTLS) client certificates for each IoT device, segments devices across dedicated VLANs, and surfaces security events to administrators in real time through a purpose-built web dashboard. An optional Telegram integration can be enabled to provide out-of-band push notifications for anomalies and critical security events, and an out-of-band channel for password reset; the system is fully operational without it.
@@ -650,4 +589,4 @@ TELEGRAM_BOT_TOKEN=<your-bot-token>
 TELEGRAM_ADMIN_CHAT_ID=<your-chat-id>
 
 # Analytics
-ANOMALY_SENSITIVITY=2.5                     # Z-score threshold
+ANOMALY_SENSITIVITY=2
